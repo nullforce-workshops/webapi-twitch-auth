@@ -4,6 +4,8 @@ namespace WebApiTwitchAuthContrib
 {
     public class WeatherForecast
     {
+        public string Username { get; set; }
+
         public DateTime Date { get; set; }
 
         public int TemperatureC { get; set; }
