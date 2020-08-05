@@ -1,0 +1,8 @@
+.vs/
+
+**/bin
+**/obj
+
+# Ignore Nuke build folders
+.tmp/
+output/
