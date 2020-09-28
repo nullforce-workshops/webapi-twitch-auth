@@ -62,6 +62,20 @@
             "metadata": {
                 "description": "The branch of the GitHub repository to use."
             }
+        },
+        "twitchClientId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "twitchClientSecret": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "description"
+            }
         }
     },
     "variables": {
@@ -90,7 +104,17 @@
                 "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]"
             ],
             "properties": {
-                "serverFarmId": "[variables('hostingPlanName')]"
+                "serverFarmId": "[variables('hostingPlanName')]",
+                "appSettings": [
+                    {
+                        "name": "TWITCH__CLIENTID",
+                        "value": "[parameters('twitchClientId')]"
+                    },
+                    {
+                        "name": "TWITCH__CLIENTSECRET",
+                        "value": "[parameters('twitchClientSecret')]"
+                    }
+                ]
             },
             "resources": [
                 {
