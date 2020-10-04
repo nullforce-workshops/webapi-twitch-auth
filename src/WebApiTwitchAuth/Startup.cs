@@ -1,17 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using WebApiTwitchAuth.Twitch;
 
 namespace WebApiTwitchAuth
 {
@@ -35,19 +29,15 @@ namespace WebApiTwitchAuth
                 options.DefaultChallengeScheme = "Twitch";
             })
             .AddCookie()
-            .AddOAuth("Twitch", options =>
+            .AddOAuth<TwitchAuthenticationOptions, TwitchAuthenticationHandler>(
+                "Twitch", "Twitch", options =>
             {
-                var twitchDomain = Configuration["Twitch:TwitchApiDomain"];
-
-                options.AuthorizationEndpoint = $"{twitchDomain}/oauth2/authorize";
-
                 options.Scope.Add("user:read:email");
 
                 options.CallbackPath = new PathString("/auth/twitch/callback");
 
                 options.ClientId = Configuration["Twitch:ClientId"];
                 options.ClientSecret = Configuration["Twitch:ClientSecret"];
-                options.TokenEndpoint = $"{twitchDomain}/oauth2/token";
             });
 
             services.AddControllers();
