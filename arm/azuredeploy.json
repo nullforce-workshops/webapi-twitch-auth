@@ -108,18 +108,6 @@
             },
             "resources": [
                 {
-                    "name": "appsettings",
-                    "type": "config",
-                    "apiVersion": "2020-06-01",
-                    "dependsOn": [
-                        "[resourceId('Microsoft.Web/sites', parameters('siteName'))]"
-                    ],
-                    "properties": {
-                        "TWITCH__CLIENTID": "[parameters('twitchClientId')]",
-                        "TWITCH__CLIENTSECRET": "[parameters('twitchClientSecret')]"
-                    }
-                },
-                {
                     "type": "sourcecontrols",
                     "apiVersion": "2018-02-01",
                     "name": "web",
@@ -131,6 +119,18 @@
                         "repoUrl": "[parameters('repoURL')]",
                         "branch": "[parameters('branch')]",
                         "isManualIntegration": true
+                    }
+                },
+                {
+                    "name": "appsettings",
+                    "type": "config",
+                    "apiVersion": "2020-06-01",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Web/sites', parameters('siteName'))]"
+                    ],
+                    "properties": {
+                        "TWITCH__CLIENTID": "[parameters('twitchClientId')]",
+                        "TWITCH__CLIENTSECRET": "[parameters('twitchClientSecret')]"
                     }
                 }
             ]
