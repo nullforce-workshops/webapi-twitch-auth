@@ -104,19 +104,21 @@
                 "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]"
             ],
             "properties": {
-                "serverFarmId": "[variables('hostingPlanName')]",
-                "appSettings": [
-                    {
-                        "name": "TWITCH__CLIENTID",
-                        "value": "[parameters('twitchClientId')]"
-                    },
-                    {
-                        "name": "TWITCH__CLIENTSECRET",
-                        "value": "[parameters('twitchClientSecret')]"
-                    }
-                ]
+                "serverFarmId": "[variables('hostingPlanName')]"
             },
             "resources": [
+                {
+                    "name": "appsettings",
+                    "type": "config",
+                    "apiVersion": "2020-06-01",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Web/sites', parameters('siteName'))]"
+                    ],
+                    "properties": {
+                        "TWITCH__CLIENTID": "[parameters('twitchClientId')]",
+                        "TWITCH__CLIENTSECRET": "[parameters('twitchClientSecret')]"
+                    }
+                },
                 {
                     "type": "sourcecontrols",
                     "apiVersion": "2018-02-01",
